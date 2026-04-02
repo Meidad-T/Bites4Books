@@ -144,39 +144,35 @@
    HERO MOBILE FIXES
    ============================================ */
 @media (max-width: 640px) {
+  /* Taller container so scaled images have room */
   .animated-hero-container {
-    height: 600px !important;
+    height: 520px !important;
+  }
+
+  /* Scale up images 2.1x via transform (avoids overflow clipping issues) */
+  .hero-image-wrapper {
+    transform: scale(1.7);
+    transform-origin: center center;
+  }
+
+  /* Keep text anchored at bottom of the container, above the images */
+  .maimai-overlay {
+    bottom: 16px !important;
+    z-index: 10;
+    transform: scale(1.2);
+    transform-origin: center bottom;
   }
 
   .maimai-heading {
-    font-size: 2.5rem !important;
-  }
-
-  .maimai-overlay {
-    bottom: 8px !important;
-    padding: 0 12px;
-    z-index: 5;
-    background: linear-gradient(to top, rgba(240,126,126,0.75) 0%, transparent 100%);
-    border-radius: 0 0 16px 16px;
-    padding-bottom: 14px;
-  }
-
-  .maimai-prompt-container {
-    padding: 6px 16px;
-    margin-bottom: 8px;
+    font-size: 2.8rem !important;
   }
 
   .maimai-prompt {
-    font-size: 0.95rem !important;
+    font-size: 1.06rem !important;
   }
 
-  /* 85% of desktop (600×800) = 510×680 */
-  .hero-image-wrapper {
-    width: 510px !important;
-    height: 680px !important;
-  }
-
-  .hero-center-axis {
-    top: -15% !important;
+  .maimai-prompt-container {
+    padding: 6px 14px;
+    margin-bottom: 10px;
   }
 }
