@@ -3,12 +3,12 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: "AIzaSyCMVeFwEdYDjipEsS3PRqIpcM9MWeCQcZU",
+  authDomain: "bites2books.firebaseapp.com",
+  projectId: "bites2books",
+  storageBucket: "bites2books.firebasestorage.app",
+  messagingSenderId: "464466219086",
+  appId: "1:464466219086:web:5fb9d69cd14d3fc497f31f"
 };
 
 let app, auth, db, googleProvider;
