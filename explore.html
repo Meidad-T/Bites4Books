@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bites4Books - Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;background:rgba(250,249,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.05);}
+    .top-nav-logo{font-weight:900;font-size:1.2rem;color:#db506f;text-decoration:none;}
+    .top-nav-links{display:flex;gap:24px;align-items:center;}
+    .top-nav-item{font-weight:600;font-size:0.95rem;color:#3c3a38;text-decoration:none;cursor:pointer;background:none;border:none;font-family:inherit;}
+    .top-nav-item:hover{color:#db506f;}
+
+    /* Hub view */
+    .hub-page{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:60vh;}
+    .hub-grid{display:flex;flex-direction:column;gap:32px;width:100%;max-width:900px;margin-top:48px;}
+    @media(min-width:768px){.hub-grid{flex-direction:row;align-items:stretch;}}
+    .hub-card{flex:1;background:#fff;padding:48px 32px;border-radius:24px;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit;box-shadow:0 12px 32px rgba(0,0,0,0.06);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s;border:2px solid transparent;cursor:pointer;}
+    .hub-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(0,0,0,0.12);}
+    .hub-card-icon{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:3rem;}
+    .hub-card h2{font-size:1.8rem;font-weight:800;margin-bottom:16px;color:#333;}
+    .hub-card p{color:#888;line-height:1.6;margin-bottom:32px;flex:1;}
+    .hub-cta{font-weight:700;font-size:1.1rem;color:#db506f;padding:12px 24px;border-radius:100px;background:#fff5f7;}
+    .local-card:hover{border-color:#fbd6dd;}
+    .external-card:hover{border-color:#333;}
+    .external-card .hub-cta{color:#3e5b4c;background:#f0f5f2;}
+
+    /* Library view */
+    #library-view{display:none;}
+    .back-btn{background:none;border:none;font-weight:700;color:#db506f;cursor:pointer;font-size:1rem;margin-bottom:24px;display:flex;align-items:center;gap:6px;font-family:inherit;}
+    .search-bar{display:flex;align-items:center;gap:12px;background:#fff;padding:12px 20px;border-radius:100px;box-shadow:0 4px 12px rgba(0,0,0,0.06);margin-bottom:24px;}
+    .search-bar input{border:none;outline:none;background:transparent;font-size:1rem;width:100%;font-family:inherit;}
+    .categories-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;margin-bottom:28px;}
+    .category-chip{padding:8px 20px;border-radius:100px;border:none;background:#f0f0f0;font-weight:600;font-size:0.9rem;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all 0.2s;}
+    .category-chip.active,.category-chip:hover{background:#db506f;color:#fff;}
+    .books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;}
+    .book-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.06);cursor:pointer;transition:transform 0.2s;position:relative;}
+    .book-card:hover{transform:translateY(-4px);}
+    .book-cover{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
+    .book-info{padding:12px;}
+    .book-title{font-size:0.9rem;font-weight:700;color:#333;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .book-author{font-size:0.8rem;color:#888;}
+    .heart-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:transform 0.2s;}
+    .heart-btn:hover{transform:scale(1.2);}
+    .loading-state{text-align:center;padding:60px;color:#888;}
+    .spinner{animation:spin 1s linear infinite;display:inline-block;}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .load-more-btn{display:block;margin:32px auto;padding:16px 40px;background:#fbd6dd;border:none;border-radius:100px;font-weight:700;font-size:1rem;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+    .load-more-btn:hover{background:#f9b6c4;}
+
+    /* Modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px;}
+    .modal-box{background:#fff;border-radius:24px;padding:32px;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
+    .modal-close{position:absolute;top:16px;right:16px;background:#f0f0f0;border:none;border-radius:50%;width:36px;height:36px;font-size:1.2rem;cursor:pointer;}
+    .modal-cover{width:120px;border-radius:12px;margin-bottom:16px;}
+    .modal-title{font-size:1.5rem;font-weight:800;color:#333;margin-bottom:8px;}
+    .modal-author{color:#888;margin-bottom:16px;}
+    .modal-desc{color:#555;line-height:1.6;font-size:0.95rem;}
+    .modal-add-btn{margin-top:20px;padding:12px 28px;background:#db506f;color:#fff;border:none;border-radius:100px;font-weight:700;cursor:pointer;font-family:inherit;font-size:1rem;transition:background 0.2s;}
+    .modal-add-btn:hover{background:#c4405c;}
+    .modal-added-btn{background:#4caf50;}
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html" class="top-nav-logo">Bites2Books</a>
+    <div class="top-nav-links">
+      <a href="index.html" class="top-nav-item">Home</a>
+      <a href="explore.html" class="top-nav-item">Books</a>
+      <a href="wishlist.html" class="top-nav-item">Wishlist</a>
+      <button id="auth-btn" class="top-nav-item">Login</button>
+      <a href="faq.html" class="top-nav-item">FAQ</a>
+    </div>
+  </nav>
+
+  <div class="app-container" style="padding-top:60px;">
+    <div class="page-container">
+
+      <!-- HUB VIEW -->
+      <div id="hub-view" class="hub-page">
+        <header>
+          <h1>Discover Books</h1>
+          <p>Before jumping in, where would you like to explore today?</p>
+        </header>
+        <div class="hub-grid">
+          <div class="hub-card local-card" onclick="showLibrary()">
+            <div class="hub-card-icon" style="background:#fff5f7;">📚</div>
+            <h2>Bites Library</h2>
+            <p>Search over 1000s of books digitally, directly in the app. Add books to your Bites2Books wishlist!</p>
+            <span class="hub-cta">Enter Library →</span>
+          </div>
+          <a href="https://www.barnesandnoble.com/" target="_blank" rel="noopener noreferrer" class="hub-card external-card">
+            <div class="hub-card-icon" style="background:#f0f5f2;">🏪</div>
+            <h2>Barnes &amp; Noble</h2>
+            <p>Ready to spend those hard-earned points? Head to Barnes &amp; Noble to order real physical copies!</p>
+            <span class="hub-cta" style="color:#3e5b4c;background:#f0f5f2;">Shop Now →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- LIBRARY VIEW -->
+      <div id="library-view">
+        <button class="back-btn" onclick="showHub()">← Back to Books</button>
+        <header style="margin-bottom:24px;">
+          <h1>Explore</h1>
+          <p>Discover new stories to reward yourself.</p>
+        </header>
+
+        <div class="search-bar">
+          <span style="font-size:1.2rem;color:#888;">🔍</span>
+          <input id="search-input" type="text" placeholder="Search books by title or author... (Press Enter)">
+        </div>
+
+        <div class="categories-scroll">
+          <button class="category-chip active" data-cat="horror">Horror</button>
+          <button class="category-chip" data-cat="mystery">Mystery</button>
+          <button class="category-chip" data-cat="humor">Comedy</button>
+          <button class="category-chip" data-cat="science_fiction">Sci-Fi</button>
+          <button class="category-chip" data-cat="historical">Historical</button>
+        </div>
+
+        <div id="books-container">
+          <div class="loading-state"><span class="spinner">⏳</span><p>Finding wonderful books...</p></div>
+        </div>
+        <button id="load-more-btn" class="load-more-btn" style="display:none;">Load More</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal-overlay" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="document.getElementById('modal-overlay').style.display='none'">✕</button>
+      <img id="modal-cover" class="modal-cover" src="" alt="">
+      <div id="modal-title" class="modal-title"></div>
+      <div id="modal-author" class="modal-author"></div>
+      <div id="modal-desc" class="modal-desc"></div>
+      <button id="modal-add-btn" class="modal-add-btn">♡ Add to Wishlist</button>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="nav-item active">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      <span>Explore</span>
+    </a>
+    <a href="wishlist.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      <span>Wishlist</span>
+    </a>
+  </nav>
+
+  <script type="module">
+    import { auth, provider, db, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, updateDoc } from './js/firebase.js';
+
+    const API_KEY = 'd15d2206bc084d91beefb26505a897f3';
+    let books = [];
+    let currentOffset = 0;
+    let currentCategory = 'horror';
+    let currentQuery = '';
+    let currentUser = null;
+    let wishlist = [];
+
+    // Auth
+    const authBtn = document.getElementById('auth-btn');
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (user) {
+        authBtn.textContent = `Logout (${user.displayName.split(' ')[0]})`;
+        authBtn.onclick = () => signOut(auth).then(() => location.reload());
+        const snap = await getDoc(doc(db, 'points', user.uid));
+        if (snap.exists()) {
+          let wl = snap.data().wishlist || [];
+          if (wl.length > 0 && typeof wl[0] === 'object') {
+            wl = wl.map(b => `${b.title}, ${b.author_name ? (Array.isArray(b.author_name) ? b.author_name.join(' & ') : b.author_name) : 'Unknown'}`);
+          }
+          wishlist = wl;
+        }
+      } else {
+        authBtn.textContent = 'Login';
+        authBtn.onclick = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
+      }
+    });
+
+    // Hub/Library toggle
+    window.showLibrary = () => {
+      document.getElementById('hub-view').style.display = 'none';
+      document.getElementById('library-view').style.display = 'block';
+      if (books.length === 0) fetchBooks(false);
+    };
+    window.showHub = () => {
+      document.getElementById('hub-view').style.display = '';
+      document.getElementById('library-view').style.display = 'none';
+    };
+
+    // Fetch books from Big Book API
+    async function fetchBooks(append = false) {
+      const container = document.getElementById('books-container');
+      if (!append) { container.innerHTML = '<div class="loading-state"><span class="spinner">⏳</span><p>Finding wonderful books...</p></div>'; }
+
+      let url = `https://api.bigbookapi.com/search-books?api-key=${API_KEY}&number=50&offset=${currentOffset}`;
+      if (currentQuery.trim()) url += `&query=${encodeURIComponent(currentQuery.trim())}`;
+      else url += `&genres=${currentCategory}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const rawBooks = data.books ? data.books.map(arr => arr[0]).filter(b => b && b.image) : [];
+        const formatted = rawBooks.map(b => ({
+          key: b.id.toString(),
+          title: b.title,
+          authors: b.authors ? b.authors.map(a => a.name) : [],
+          cover: b.image
+        }));
+
+        // Deduplicate (max 4 same title+author)
+        const counts = {};
+        const filtered = [];
+        for (const b of formatted) {
+          const id = `${b.title.trim().toLowerCase()}|${b.authors.join(',').toLowerCase()}`;
+          counts[id] = (counts[id] || 0) + 1;
+          if (counts[id] <= 4) filtered.push(b);
+        }
+
+        if (append) { books = [...books, ...filtered]; }
+        else { books = filtered; }
+
+        renderBooks(append);
+      } catch(e) {
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:40px;">Couldn\'t load books right now. Try again!</p>';
+        console.error(e);
+      }
+    }
+
+    function renderBooks(append) {
+      const container = document.getElementById('books-container');
+      const loadMoreBtn = document.getElementById('load-more-btn');
+
+      if (!append) container.innerHTML = '';
+
+      if (books.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:40px;">No books found. Try a different search!</p>';
+        loadMoreBtn.style.display = 'none';
+        return;
+      }
+
+      const startIdx = append ? books.length - (books.length % 50 || 50) : 0;
+      const booksToRender = append ? books.slice(startIdx) : books;
+
+      // Build grid if needed
+      let grid = container.querySelector('.books-grid');
+      if (!grid) {
+        grid = document.createElement('div');
+        grid.className = 'books-grid';
+        container.appendChild(grid);
+      }
+
+      booksToRender.forEach(book => {
+        const card = document.createElement('div');
+        card.className = 'book-card';
+        const authorStr = book.authors.slice(0, 2).join(', ') || 'Unknown Author';
+        const bookStr = `${book.title}, ${book.authors[0] || 'Unknown'}`;
+        const isWishlisted = wishlist.includes(bookStr);
+        card.innerHTML = `
+          <img class="book-cover" src="${book.cover}" alt="${book.title}" loading="lazy" onerror="this.closest('.book-card').style.display='none'">
+          <div class="book-info">
+            <div class="book-title" title="${book.title}">${book.title}</div>
+            <div class="book-author">${authorStr}</div>
+          </div>
+          <button class="heart-btn" data-key="${book.key}" title="Add to Wishlist">${isWishlisted ? '❤️' : '🤍'}</button>
+        `;
+        card.querySelector('.book-cover').addEventListener('click', () => openModal(book));
+        card.querySelector('.book-info').addEventListener('click', () => openModal(book));
+        card.querySelector('.heart-btn').addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (!currentUser) { alert('Please log in to save books to your wishlist!'); return; }
+          if (wishlist.includes(bookStr)) {
+            wishlist = wishlist.filter(b => b !== bookStr);
+            e.currentTarget.textContent = '🤍';
+          } else {
+            if (wishlist.length >= 600) { alert('Wishlist full! Max 600 books.'); return; }
+            wishlist.push(bookStr);
+            e.currentTarget.textContent = '❤️';
+          }
+          try { await updateDoc(doc(db, 'points', currentUser.uid), { wishlist }); } catch(err) { console.error(err); }
+        });
+        grid.appendChild(card);
+      });
+
+      loadMoreBtn.style.display = 'block';
+    }
+
+    // Modal
+    let modalBook = null;
+    window.closeModal = (e) => { if (e.target === document.getElementById('modal-overlay')) document.getElementById('modal-overlay').style.display = 'none'; };
+
+    function openModal(book) {
+      modalBook = book;
+      document.getElementById('modal-cover').src = book.cover;
+      document.getElementById('modal-title').textContent = book.title;
+      document.getElementById('modal-author').textContent = book.authors.join(', ') || 'Unknown Author';
+      document.getElementById('modal-desc').textContent = 'Click "Add to Wishlist" to save this book!';
+      const addBtn = document.getElementById('modal-add-btn');
+      const bookStr = `${book.title}, ${book.authors[0] || 'Unknown'}`;
+      const isIn = wishlist.includes(bookStr);
+      addBtn.textContent = isIn ? '✓ In Wishlist' : '♡ Add to Wishlist';
+      addBtn.className = isIn ? 'modal-add-btn modal-added-btn' : 'modal-add-btn';
+      document.getElementById('modal-overlay').style.display = 'flex';
+    }
+
+    document.getElementById('modal-add-btn').addEventListener('click', async () => {
+      if (!currentUser) { alert('Please log in first!'); return; }
+      if (!modalBook) return;
+      const bookStr = `${modalBook.title}, ${modalBook.authors[0] || 'Unknown'}`;
+      const btn = document.getElementById('modal-add-btn');
+      if (wishlist.includes(bookStr)) {
+        wishlist = wishlist.filter(b => b !== bookStr);
+        btn.textContent = '♡ Add to Wishlist';
+        btn.className = 'modal-add-btn';
+      } else {
+        wishlist.push(bookStr);
+        btn.textContent = '✓ In Wishlist';
+        btn.className = 'modal-add-btn modal-added-btn';
+      }
+      try { await updateDoc(doc(db, 'points', currentUser.uid), { wishlist }); } catch(e) { console.error(e); }
+    });
+
+    // Category chips
+    document.querySelectorAll('.category-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentCategory = chip.dataset.cat;
+        currentQuery = '';
+        document.getElementById('search-input').value = '';
+        currentOffset = 0;
+        books = [];
+        fetchBooks(false);
+      });
+    });
+
+    // Search
+    document.getElementById('search-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        currentQuery = e.target.value;
+        currentOffset = 0;
+        books = [];
+        fetchBooks(false);
+      }
+    });
+
+    // Load more
+    document.getElementById('load-more-btn').addEventListener('click', () => {
+      currentOffset += 50;
+      fetchBooks(true);
+    });
+  </script>
+</body>
+</html>
