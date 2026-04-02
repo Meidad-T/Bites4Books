@@ -3,17 +3,19 @@
    ============================================ */
 .top-nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
   height: 60px;
-  background: rgba(250,249,245,0.95);
+  background: rgba(250, 249, 245, 0.95);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .top-nav-logo {
@@ -42,10 +44,14 @@
   white-space: nowrap;
 }
 
-.top-nav-item:hover { color: #db506f; }
+.top-nav-item:hover {
+  color: #db506f;
+}
 
 /* Icons hidden by default on desktop — only show in mobile dropdown */
-.nav-icon { display: none; }
+.nav-icon {
+  display: none;
+}
 
 /* Hamburger button — hidden on desktop */
 .hamburger-btn {
@@ -70,6 +76,7 @@
 
 /* Mobile styles */
 @media (max-width: 640px) {
+
   /* Taller nav bar, bigger logo + hamburger */
   .top-nav {
     height: 72px;
@@ -96,18 +103,21 @@
     display: none;
     position: fixed;
     top: 72px;
-    left: 0; right: 0;
-    background: rgba(252,250,248,0.99);
+    left: 0;
+    right: 0;
+    background: rgba(252, 250, 248, 0.99);
     backdrop-filter: blur(20px);
     flex-direction: column;
     align-items: flex-start;
     padding: 8px 0 16px;
     gap: 0;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
   }
 
-  .top-nav-links.open { display: flex; }
+  .top-nav-links.open {
+    display: flex;
+  }
 
   /* Each nav item: icon + label, full-width, left-aligned */
   .top-nav-item {
@@ -118,12 +128,14 @@
     padding: 16px 24px;
     font-size: 1.1rem;
     font-weight: 700;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     color: #3c3a38;
     text-align: left;
   }
 
-  .top-nav-item:last-child { border-bottom: none; }
+  .top-nav-item:last-child {
+    border-bottom: none;
+  }
 
   /* Show icons inside the mobile dropdown only */
   .top-nav-links .nav-icon {
@@ -135,15 +147,25 @@
   }
 
   /* Animate hamburger bars into X when open */
-  .hamburger-btn.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
-  .hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .hamburger-btn.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+  .hamburger-btn.open span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+
+  .hamburger-btn.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger-btn.open span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
 }
 
 /* ============================================
    HERO MOBILE FIXES
    ============================================ */
 @media (max-width: 640px) {
+
   /* Taller container so scaled images have room */
   .animated-hero-container {
     height: 520px !important;
