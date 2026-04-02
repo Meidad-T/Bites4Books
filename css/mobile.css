@@ -44,6 +44,9 @@
 
 .top-nav-item:hover { color: #db506f; }
 
+/* Icons hidden by default on desktop — only show in mobile dropdown */
+.nav-icon { display: none; }
+
 /* Hamburger button — hidden on desktop */
 .hamburger-btn {
   display: none;
@@ -122,7 +125,9 @@
 
   .top-nav-item:last-child { border-bottom: none; }
 
-  .top-nav-item .nav-icon {
+  /* Show icons inside the mobile dropdown only */
+  .top-nav-links .nav-icon {
+    display: block;
     width: 22px;
     height: 22px;
     flex-shrink: 0;
@@ -140,20 +145,20 @@
    ============================================ */
 @media (max-width: 640px) {
   .animated-hero-container {
-    height: 420px !important;
+    height: 560px !important;
   }
 
   .maimai-heading {
-    font-size: 2.8rem !important;
+    font-size: 2.5rem !important;
   }
 
   .maimai-overlay {
     bottom: 8px !important;
     padding: 0 12px;
     z-index: 5;
-    background: linear-gradient(to top, rgba(240,126,126,0.7) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(240,126,126,0.75) 0%, transparent 100%);
     border-radius: 0 0 16px 16px;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
   }
 
   .maimai-prompt-container {
@@ -162,16 +167,16 @@
   }
 
   .maimai-prompt {
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
   }
 
+  /* 2x larger images on mobile */
   .hero-image-wrapper {
-    width: 300px !important;
-    height: 400px !important;
+    width: 380px !important;
+    height: 520px !important;
   }
 
   .hero-center-axis {
-    top: 10% !important;
-    align-items: flex-end;
+    top: 4% !important;
   }
 }
