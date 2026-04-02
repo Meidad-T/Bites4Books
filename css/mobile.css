@@ -145,7 +145,7 @@
    ============================================ */
 @media (max-width: 640px) {
   .animated-hero-container {
-    height: 560px !important;
+    height: 600px !important;
   }
 
   .maimai-heading {
@@ -170,13 +170,13 @@
     font-size: 0.95rem !important;
   }
 
-  /* Fill most of the screen width with images on mobile */
+  /* 85% of desktop (600×800) = 510×680 */
   .hero-image-wrapper {
-    width: 90vw !important;
-    height: 130vw !important;
+    width: 510px !important;
+    height: 680px !important;
   }
 
   .hero-center-axis {
-    top: 2% !important;
+    top: -15% !important;
   }
 }
