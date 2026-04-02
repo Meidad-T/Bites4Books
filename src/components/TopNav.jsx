@@ -25,7 +25,7 @@ const TopNav = () => {
         >
           {user ? `Logout (${user.displayName?.split(' ')[0] || 'User'})` : 'Login'}
         </button>
-        <a href="#" className="top-nav-item">FAQ</a>
+        <NavLink to="/faq" className="top-nav-item">FAQ</NavLink>
       </div>
     </nav>
   );

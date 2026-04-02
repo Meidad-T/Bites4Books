@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './AnimatedHero.css';
 
 const FOOD_IMAGES = ['/hero-food-1.png', '/hero-food-2.png', '/hero-food-3.png'];
-const BOOK_IMAGES = ['/hero-cover-1.png', '/hero-cover-2.png', '/hero-cover-3.png'];
+const BOOK_IMAGES = [
+  '/hero-cover-1.png', 
+  '/hero-cover-2.png', 
+  '/hero-cover-3.png', 
+  '/hero-cover-4.png', 
+  '/hero-cover-5.png', 
+  '/hero-cover-6.png'
+];
 
 export default function AnimatedHero() {
   const [foodIndex, setFoodIndex] = useState(0);
@@ -70,6 +77,7 @@ export default function AnimatedHero() {
                src={src} 
                className={`hero-image ${i === bookIndex ? 'active' : ''}`}
                alt="Book Option" 
+               onError={(e) => e.target.style.display = 'none'}
              />
           ))}
         </div>

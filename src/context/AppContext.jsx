@@ -33,7 +33,17 @@ export const AppProvider = ({ children }) => {
             const data = docSnap.data();
             setPoints(data.points || 0);
             setLifetimePoints(data.lifetimePoints || data.points || 0);
-            setWishlist(data.wishlist || []);
+
+            // Backwards compatibility hook to cast old database objects strictly into Strings! 
+            let cloudWishlist = data.wishlist || [];
+            if (cloudWishlist.length > 0 && typeof cloudWishlist[0] === 'object') {
+              cloudWishlist = cloudWishlist.map(b => {
+                const author = b.author_name ? (Array.isArray(b.author_name) ? b.author_name.join(' & ') : b.author_name) : 'Unknown';
+                return `${b.title}, ${author}`;
+              });
+            }
+            setWishlist(cloudWishlist);
+            
             setDailyLog(data.dailyLog || { date: new Date().toDateString(), count: 0 });
           } else {
             // First time logging in? Initialize fresh cloud record!

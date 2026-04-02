@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Explore from './pages/Explore';
 import BooksHub from './pages/BooksHub';
 import Wishlist from './pages/Wishlist';
+import FAQ from './pages/FAQ';
 import TopNav from './components/TopNav';
 import './App.css';
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/explore" element={<BooksHub />} />
           <Route path="/library" element={<Explore />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/faq" element={<FAQ />} />
         </Routes>
         <Navigation />
       </div>

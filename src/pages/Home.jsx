@@ -42,17 +42,23 @@ const Home = () => {
         {/* Progress and Logging Area */}
         <div className="home-progress-section">
           <div className="home-progress-container">
-            <Counter
-              value={points}
-              places={[100, 10, 1]}
-              fontSize={56}
-              padding={5}
-              gap={6}
-              textColor="#333"
-              fontWeight={900}
-              digitPlaceHolders
-              gradientFrom="rgba(255, 255, 255, 0)"
-            />
+            {points === 0 ? (
+              <h2 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#333', marginBottom: '8px', letterSpacing: '-1px' }}>
+                No Points (yet)
+              </h2>
+            ) : (
+              <Counter
+                value={points}
+                places={[100, 10, 1]}
+                fontSize={56}
+                padding={5}
+                gap={6}
+                textColor="#333"
+                fontWeight={900}
+                digitPlaceHolders
+                gradientFrom="rgba(255, 255, 255, 0)"
+              />
+            )}
             <ProgressBar points={points} milestones={[200, 400, 600]} maxPoints={600} />
           </div>
 
@@ -88,7 +94,7 @@ const Home = () => {
                 style={{ background: '#db506f', color: '#fff', opacity: 1, border: 'none' }}
                 onClick={login}
               >
-                Login Below to Earn Points ❤️
+                Log in for 10 free points!
               </button>
             ) : (
               <button 

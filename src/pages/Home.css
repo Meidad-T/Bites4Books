@@ -2,11 +2,17 @@
   overflow-x: hidden;
 }
 
+.page-container.home-page {
+  padding-top: 0px; 
+}
+
 .home-progress-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 32px;
+  margin-top: -16px; /* Bridge the gap directly onto the Hero container */
+  position: relative;
+  z-index: 20;
   gap: 24px;
 }
 
@@ -161,7 +167,7 @@
 }
 
 .how-it-works-section {
-  padding: 64px 0;
+  padding: 24px 0 64px 0;
   text-align: center;
 }
 
