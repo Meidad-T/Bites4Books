@@ -1,4 +1,6 @@
 // Shared nav behaviour: hamburger toggle + close on scroll
+export const USER_ICON = `<svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
+
 export function initNav() {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');

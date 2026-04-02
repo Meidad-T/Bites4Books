@@ -108,15 +108,15 @@
 
   <script type="module">
     import { auth, provider, signInWithPopup, signOut, onAuthStateChanged } from './js/firebase.js';
-    import { initNav } from './js/nav.js';
+    import { initNav, USER_ICON } from './js/nav.js';
     initNav();
     const authBtn = document.getElementById('auth-btn');
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        authBtn.textContent = `Logout (${user.displayName.split(' ')[0]})`;
+        authBtn.innerHTML = `${USER_ICON} Logout (${user.displayName.split(' ')[0]})`;
         authBtn.onclick = () => signOut(auth).then(() => location.reload());
       } else {
-        authBtn.textContent = 'Login';
+        authBtn.innerHTML = `${USER_ICON} Login`;
         authBtn.onclick = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
       }
     });

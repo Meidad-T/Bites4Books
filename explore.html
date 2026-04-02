@@ -173,7 +173,7 @@
 
   <script type="module">
     import { auth, provider, db, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, updateDoc } from './js/firebase.js';
-    import { initNav } from './js/nav.js';
+    import { initNav, USER_ICON } from './js/nav.js';
     initNav();
 
     const API_KEY = 'd15d2206bc084d91beefb26505a897f3';
@@ -189,7 +189,7 @@
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
-        authBtn.textContent = `Logout (${user.displayName.split(' ')[0]})`;
+        authBtn.innerHTML = `${USER_ICON} Logout (${user.displayName.split(' ')[0]})`;
         authBtn.onclick = () => signOut(auth).then(() => location.reload());
         const snap = await getDoc(doc(db, 'points', user.uid));
         if (snap.exists()) {
@@ -200,7 +200,7 @@
           wishlist = wl;
         }
       } else {
-        authBtn.textContent = 'Login';
+        authBtn.innerHTML = `${USER_ICON} Login`;
         authBtn.onclick = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
       }
     });

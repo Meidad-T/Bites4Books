@@ -170,13 +170,13 @@
     font-size: 0.95rem !important;
   }
 
-  /* 2x larger images on mobile */
+  /* Fill most of the screen width with images on mobile */
   .hero-image-wrapper {
-    width: 380px !important;
-    height: 520px !important;
+    width: 90vw !important;
+    height: 130vw !important;
   }
 
   .hero-center-axis {
-    top: 4% !important;
+    top: 2% !important;
   }
 }

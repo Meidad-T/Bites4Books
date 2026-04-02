@@ -149,7 +149,7 @@
 
   <script type="module">
     import { auth, provider, db, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, updateDoc, arrayUnion } from './js/firebase.js';
-    import { initNav } from './js/nav.js';
+    import { initNav, USER_ICON } from './js/nav.js';
     initNav();
 
     // Hero swap animation
@@ -200,7 +200,7 @@
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
-        authBtn.textContent = `Logout (${user.displayName.split(' ')[0]})`;
+        authBtn.innerHTML = `${USER_ICON} Logout (${user.displayName.split(' ')[0]})`;
         authBtn.onclick = () => signOut(auth).then(() => location.reload());
 
         const snap = await getDoc(doc(db, 'points', user.uid));
@@ -216,7 +216,7 @@
         logBtn.style.color = '#c4d7b2';
         updatePointsUI();
       } else {
-        authBtn.textContent = 'Login';
+        authBtn.innerHTML = `${USER_ICON} Login`;
         authBtn.onclick = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
         logBtn.textContent = 'Log in for 10 free points!';
         logBtn.style.background = '#db506f';
