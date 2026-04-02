@@ -151,7 +151,7 @@
 
   /* Scale up images 2.1x via transform (avoids overflow clipping issues) */
   .hero-image-wrapper {
-    transform: scale(1.53);
+    transform: scale(1.38);
     transform-origin: center center;
   }
 
