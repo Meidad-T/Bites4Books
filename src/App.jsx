@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { Home as HomeIcon, Compass, Heart } from 'lucide-react';
 import Home from './pages/Home';
 import Explore from './pages/Explore';
@@ -30,7 +30,7 @@ const Navigation = () => {
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="app-container">
         <TopNav />
         <Routes>
@@ -42,7 +42,7 @@ function App() {
         </Routes>
         <Navigation />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
