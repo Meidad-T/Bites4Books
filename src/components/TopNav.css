@@ -1,0 +1,51 @@
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  background-color: transparent; /* Assuming it overlays or sits above safely */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 100;
+}
+
+.top-nav-logo a {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  display: flex;
+}
+
+.logo-bites {
+  color: #794343;
+}
+
+.logo-books {
+  color: #ffffff; /* Matches right pink background or can be dark depending on placement */
+  /* Let's make logo universally visible */
+  color: #333; 
+}
+
+.top-nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.top-nav-item {
+  color: #333;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.top-nav-item:hover {
+  opacity: 0.7;
+}
+
+.top-nav-item.active {
+  color: #aa4555;
+  border-bottom: 2px solid #aa4555;
+}

@@ -1,0 +1,249 @@
+.home-page-wrapper {
+  overflow-x: hidden;
+}
+
+.home-progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  gap: 24px;
+}
+
+.home-progress-container {
+  background: white;
+  padding: 24px 32px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08); /* Matches other clean container shadows */
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Make inner progress bar striking against white container */
+.home-progress-container .progress-bar-bg {
+  background-color: rgba(0, 0, 0, 0.05);
+  height: 32px;
+  margin-top: 8px;
+}
+
+.home-progress-container .progress-bar-fill {
+  background: linear-gradient(90deg, #f07e7e 0%, #db506f 100%);
+  box-shadow: 0 0 12px rgba(219, 80, 111, 0.3);
+}
+
+.home-progress-container .milestone-marker {
+  width: 14px;
+  height: 14px;
+  border: 4px solid white;
+}
+
+.home-progress-container .milestone-label {
+  font-size: 0.85rem;
+  top: -32px;
+}
+
+.home-progress-container .milestone-label-bottom {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #db506f;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+  line-height: 1.1;
+}
+
+.home-progress-container .milestone-marker.reached {
+  background-color: #db506f;
+  border-color: #ffffff;
+  box-shadow: 0 0 8px rgba(219, 80, 111, 0.6);
+}
+
+.home-action-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.home-log-button {
+  background-color: #2c3325;
+  color: #c4d7b2;
+  padding: 16px 40px;
+  border-radius: 100px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s;
+  box-shadow: 0 8px 24px rgba(44, 51, 37, 0.15);
+}
+
+.home-log-button:hover {
+  background-color: #1a1e16;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.home-log-button.animating {
+  transform: scale(0.9);
+}
+
+.home-log-button.disabled {
+  background-color: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.home-input-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  padding: 12px 12px 12px 24px;
+  border-radius: 100px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+}
+
+.home-meal-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.05rem;
+  color: #333;
+  width: 200px;
+}
+
+.home-yummy-button {
+  background-color: #db506f;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(219, 80, 111, 0.3);
+}
+
+.home-yummy-button:hover:not(:disabled) {
+  background-color: #c4405c;
+}
+
+.home-yummy-button:disabled {
+  background-color: #ffb5c6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.home-cancel-button {
+  background-color: transparent;
+  color: #888;
+  padding: 10px 16px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.home-cancel-button:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.how-it-works-section {
+  padding: 64px 0;
+  text-align: center;
+}
+
+.how-it-works-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 48px;
+  color: #333;
+  letter-spacing: -1px;
+}
+
+.how-it-works-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .how-it-works-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .how-it-works-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.step-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.step-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.pulse-1 { background: linear-gradient(135deg, #c4d7b2 0%, #a3be8c 100%); }
+.pulse-2 { background: linear-gradient(135deg, #8fae77 0%, #6f8c55 100%); }
+.pulse-3 { background: linear-gradient(135deg, #f07e7e 0%, #db506f 100%); }
+.pulse-4 { background: linear-gradient(135deg, #db506f 0%, #aa4555 100%); }
+
+.step-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.step-card p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.special-card {
+  background: linear-gradient(180deg, #fff 0%, #fff7f8 100%);
+  border: 2px solid #f07e7e;
+}
+
+.special-card h3 {
+  color: #db506f;
+}
