@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bites4Books - FAQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;background:rgba(250,249,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.05);}
+    .top-nav-logo{font-weight:900;font-size:1.2rem;color:#db506f;text-decoration:none;}
+    .top-nav-links{display:flex;gap:24px;align-items:center;}
+    .top-nav-item{font-weight:600;font-size:0.95rem;color:#3c3a38;text-decoration:none;cursor:pointer;background:none;border:none;font-family:inherit;}
+    .top-nav-item:hover{color:#db506f;}
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html" class="top-nav-logo">Bites2Books</a>
+    <div class="top-nav-links">
+      <a href="index.html" class="top-nav-item">Home</a>
+      <a href="explore.html" class="top-nav-item">Books</a>
+      <a href="wishlist.html" class="top-nav-item">Wishlist</a>
+      <button id="auth-btn" class="top-nav-item">Login</button>
+      <a href="faq.html" class="top-nav-item">FAQ</a>
+    </div>
+  </nav>
+
+  <div class="app-container" style="padding-top:60px;">
+    <div class="page-container faq-page">
+      <div class="faq-header">
+        <h1>Frequently Asked Questions</h1>
+        <p>A little bit of background on why this exists! ❤️</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <div class="faq-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+          <div class="faq-content">
+            <h3>Why are we doing it?</h3>
+            <p>"I was thinking for hours - how can I make your journey easier?" and to me, sitting back and listening wasn't enough. so, I decided to make you the website with books as an incentive.<br><br>You love books, and I love your happiness and well-being, so its a win win!</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="faq-content">
+            <h3>Point system</h3>
+            <p>every 200 points will be a book! I know it feels like a ton, BUT if you eat 3 meals a day, it's 1 book per week! should be pretty cool. In fact, there may also be a milestone bonus one day, so keep logging!</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="faq-content">
+            <h3>Tech Stack (are you a nerd? why would you read it?)</h3>
+            <p>hehe anyways, this site is using plain HTML/CSS/JS and your data (points) is being handled by Firebase. Your Google Account sign-in is authenticated using Firebase as well.<br><br>The main reason I used firebase, is for saving your points so they are consistent across all devices in real-time, as well as being able to "award" you points through my admin power (I am cool right?).</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+          </div>
+          <div class="faq-content">
+            <h3>Do I have to do this?</h3>
+            <p>Not at all. you don't have to do it, I just wanted to try and provide an incentive to getting healthier, since I believe it is a journey you would go through anyways... might as well enjoy some books (alongside other support from me). But this is just a tool to make it go a bit easier is all...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      <span>Explore</span>
+    </a>
+    <a href="wishlist.html" class="nav-item active">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      <span>Wishlist</span>
+    </a>
+  </nav>
+
+  <script type="module">
+    import { auth, provider, signInWithPopup, signOut, onAuthStateChanged } from './js/firebase.js';
+    const authBtn = document.getElementById('auth-btn');
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authBtn.textContent = `Logout (${user.displayName.split(' ')[0]})`;
+        authBtn.onclick = () => signOut(auth).then(() => location.reload());
+      } else {
+        authBtn.textContent = 'Login';
+        authBtn.onclick = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
+      }
+    });
+  </script>
+</body>
+</html>
