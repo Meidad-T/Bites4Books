@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/mobile.css">
   <style>
     .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;background:rgba(250,249,245,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.05);}
     .top-nav-logo{font-weight:900;font-size:1.2rem;color:#db506f;text-decoration:none;}
@@ -18,7 +19,10 @@
 <body>
   <nav class="top-nav">
     <a href="index.html" class="top-nav-logo">Bites2Books</a>
-    <div class="top-nav-links">
+    <button class="hamburger-btn" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="top-nav-links" id="nav-links">
       <a href="index.html" class="top-nav-item">Home</a>
       <a href="explore.html" class="top-nav-item">Books</a>
       <a href="wishlist.html" class="top-nav-item">Wishlist</a>
@@ -95,6 +99,8 @@
 
   <script type="module">
     import { auth, provider, signInWithPopup, signOut, onAuthStateChanged } from './js/firebase.js';
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('nav-links').classList.toggle('open'));
+    document.addEventListener('click', (e) => { if (!e.target.closest('.top-nav')) document.getElementById('nav-links').classList.remove('open'); });
     const authBtn = document.getElementById('auth-btn');
     onAuthStateChanged(auth, (user) => {
       if (user) {
