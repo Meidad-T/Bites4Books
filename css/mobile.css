@@ -94,6 +94,11 @@
   }
 
   .top-nav-item:last-child { border-bottom: none; }
+
+  /* Animate hamburger bars into X when open */
+  .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 }
 
 /* ============================================
