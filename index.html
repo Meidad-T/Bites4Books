@@ -193,7 +193,7 @@
       const p = globalData.points;
       pointsText.innerHTML = p === 0
         ? '<h2 style="font-size:2.5rem;font-weight:900;color:#333;margin-bottom:8px;letter-spacing:-1px;">No Points (yet)</h2>'
-        : `<div style="font-size:56px;font-weight:900;color:#333;line-height:1;">${p<10?'00'+p:p<100?'0'+p:p}</div>`;
+        : `<div style="font-size:56px;font-weight:900;color:#333;line-height:1;">${p}</div>`;
       progressFill.style.width = Math.min((p/600)*100, 100) + '%';
     }
 
@@ -202,14 +202,13 @@
       const dLog = globalData.dailyLog;
       const mealsToday = (dLog && dLog.date === today) ? dLog.count : 0;
       if (mealsToday >= 3) {
-        logBtn.textContent = '3/3 meals logged — see you tomorrow 🌙';
+        logBtn.textContent = 'Thank you for eating today cutie!';
         logBtn.style.background = '#aaa';
         logBtn.style.cursor = 'not-allowed';
         logBtn.style.color = '#fff';
         logBtn.onclick = (e) => { e.preventDefault(); alert('You already logged 3 meals today! Come back tomorrow 🌙'); };
       } else {
-        const remaining = 3 - mealsToday;
-        logBtn.textContent = `Log Meal 🍽️ (${remaining} left today)`;
+        logBtn.textContent = `Log Meal 🍽️`;
         logBtn.style.background = '#2c3325';
         logBtn.style.cursor = 'pointer';
         logBtn.style.color = '#c4d7b2';
