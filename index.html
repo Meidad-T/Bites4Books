@@ -197,6 +197,26 @@
       progressFill.style.width = Math.min((p/600)*100, 100) + '%';
     }
 
+    function checkDailyLimit() {
+      const today = new Date().toDateString();
+      const dLog = globalData.dailyLog;
+      const mealsToday = (dLog && dLog.date === today) ? dLog.count : 0;
+      if (mealsToday >= 3) {
+        logBtn.textContent = '3/3 meals logged — see you tomorrow 🌙';
+        logBtn.style.background = '#aaa';
+        logBtn.style.cursor = 'not-allowed';
+        logBtn.style.color = '#fff';
+        logBtn.onclick = (e) => { e.preventDefault(); alert('You already logged 3 meals today! Come back tomorrow 🌙'); };
+      } else {
+        const remaining = 3 - mealsToday;
+        logBtn.textContent = `Log Meal 🍽️ (${remaining} left today)`;
+        logBtn.style.background = '#2c3325';
+        logBtn.style.cursor = 'pointer';
+        logBtn.style.color = '#c4d7b2';
+        logBtn.onclick = null;
+      }
+    }
+
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
@@ -211,10 +231,9 @@
           globalData = { points: 10, lifetimePoints: 10, wishlist: [], dailyLog: { date: new Date().toDateString(), count: 0 }, meals: [] };
           await setDoc(doc(db, 'points', user.uid), globalData);
         }
-        logBtn.textContent = 'Log Meal 🍽️';
-        logBtn.style.background = '#2c3325';
         logBtn.style.color = '#c4d7b2';
         updatePointsUI();
+        checkDailyLimit();
       } else {
         authBtn.innerHTML = `${USER_ICON} Login`;
         authBtn.onclick = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
@@ -255,6 +274,7 @@
       globalData.lifetimePoints += 10;
       globalData.dailyLog = dLog;
       updatePointsUI();
+      checkDailyLimit();
       cancelBtn.click();
 
       import('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.module.mjs').then(m => m.default({ particleCount: 100, spread: 70, origin: { y: 0.6 } }));
