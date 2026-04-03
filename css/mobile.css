@@ -176,3 +176,28 @@
     margin-bottom: 10px;
   }
 }
+
+/* ============================================
+   PROGRESS BAR — MOBILE FIXES
+   ============================================ */
+@media (max-width: 640px) {
+
+  /* Visible tick-dashes through the empty track */
+  .home-progress-container .progress-bar-bg {
+    background-color: #ece9e4;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 14px,
+      rgba(0,0,0,0.15) 14px,
+      rgba(0,0,0,0.15) 16px
+    );
+    border: 1.5px solid rgba(0,0,0,0.1);
+  }
+
+  /* Flat right edge so fill doesn't float as a pill */
+  .home-progress-container .progress-bar-fill,
+  .progress-bar-fill {
+    border-radius: 100px 3px 3px 100px !important;
+  }
+}
