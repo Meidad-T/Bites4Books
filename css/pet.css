@@ -2,8 +2,10 @@
    PET ROOM STYLES
    ============================================ */
 
-body, html {
-  overscroll-behavior: none; /* Prevent pull-to-refresh on mobile so dragging works well */
+body,
+html {
+  overscroll-behavior: none;
+  /* Prevent pull-to-refresh on mobile so dragging works well */
 }
 
 /* Override nav base from styles.css since pet room is full screen */
@@ -12,9 +14,12 @@ body, html {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #fff9e6; /* Soft warm yellow walls */
-  user-select: none; /* Prevent text selection while dragging */
-  margin-top: 72px; /* For top nav on mobile. Desktop nav might be diff, we'll adapt. */
+  background-color: #fff9e6;
+  /* Soft warm yellow walls */
+  user-select: none;
+  /* Prevent text selection while dragging */
+  margin-top: 72px;
+  /* For top nav on mobile. Desktop nav might be diff, we'll adapt. */
 }
 
 @media (min-width: 640px) {
@@ -32,20 +37,28 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end; /* Pet stands on floor */
+  justify-content: flex-end;
+  /* Pet stands on floor */
 }
 
 .room-wall {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 35%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 35%;
   background: radial-gradient(circle at 50% 50%, #fff0f5 0%, #ffe4e1 100%);
   z-index: 1;
 }
 
 .room-floor {
   position: absolute;
-  bottom: 0; left: 0; right: 0; height: 35%;
-  background-color: #e6d7c3; /* Wood-like tone */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background-color: #e6d7c3;
+  /* Wood-like tone */
   border-top: 4px solid #d4c0a5;
   z-index: 1;
   display: flex;
@@ -68,25 +81,30 @@ body, html {
   transform: translateX(-50%);
   width: 220px;
   height: 160px;
-  background-color: #bce6ff; /* Sky */
+  background-color: #bce6ff;
+  /* Sky */
   border: 12px solid white;
   border-radius: 16px;
-  box-shadow: inset 0 4px 8px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.05);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 
 .window-hill1 {
   position: absolute;
-  bottom: -20px; right: -20px;
-  width: 120px; height: 120px;
+  bottom: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
   background-color: #a7d971;
   border-radius: 50%;
 }
 
 .window-hill2 {
   position: absolute;
-  bottom: -30px; left: -20px;
-  width: 150px; height: 130px;
+  bottom: -30px;
+  left: -20px;
+  width: 150px;
+  height: 130px;
   background-color: #8cc63f;
   border-radius: 50%;
 }
@@ -99,7 +117,7 @@ body, html {
   background: white;
   padding: 12px 16px;
   border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   z-index: 10;
   width: 180px;
 }
@@ -154,7 +172,8 @@ body, html {
 }
 
 .pet-wrapper.jump {
-  transform: translateY(-20px) scale(1.05); /* Happy jump */
+  transform: translateY(-20px) scale(1.05);
+  /* Happy jump */
 }
 
 .pet-shadow {
@@ -164,7 +183,7 @@ body, html {
   transform: translateX(-50%);
   width: 100px;
   height: 20px;
-  background-color: rgba(0,0,0,0.15);
+  background-color: rgba(0, 0, 0, 0.15);
   border-radius: 50%;
   filter: blur(2px);
 }
@@ -173,10 +192,11 @@ body, html {
   position: relative;
   width: 120px;
   height: 140px;
-  background: linear-gradient(135deg, #fcebe8 30%, #f6bab2 100%); /* Pink naked skin */
+  background: linear-gradient(135deg, #fcebe8 30%, #f6bab2 100%);
+  /* Pink naked skin */
   border-radius: 60px 60px 40px 40px;
   border: 4px solid #333;
-  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.05);
+  box-shadow: inset -10px -10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .pet-ear {
@@ -188,8 +208,16 @@ body, html {
   border: 3px solid #333;
   border-radius: 50%;
 }
-.pet-ear.left { left: -10px; transform: rotate(-30deg); }
-.pet-ear.right { right: -10px; transform: rotate(30deg); }
+
+.pet-ear.left {
+  left: -10px;
+  transform: rotate(-30deg);
+}
+
+.pet-ear.right {
+  right: -10px;
+  transform: rotate(30deg);
+}
 
 .pet-eye {
   position: absolute;
@@ -201,16 +229,25 @@ body, html {
   animation: blink 2.5s infinite cubic-bezier(0.45, 0, 0.55, 1);
   transform-origin: center center;
 }
+
 .pet-eye::after {
   content: '';
   position: absolute;
-  top: 2px; left: 3px;
-  width: 4px; height: 4px;
+  top: 2px;
+  left: 3px;
+  width: 4px;
+  height: 4px;
   background: white;
   border-radius: 50%;
 }
-.pet-eye.left { left: 30px; }
-.pet-eye.right { right: 30px; }
+
+.pet-eye.left {
+  left: 30px;
+}
+
+.pet-eye.right {
+  right: 30px;
+}
 
 .pet-wrapper.happy .pet-eye {
   /* Closed happy eyes ^ ^ */
@@ -220,7 +257,10 @@ body, html {
   border-radius: 50% 50% 0 0;
   animation: none;
 }
-.pet-wrapper.happy .pet-eye::after { display: none; }
+
+.pet-wrapper.happy .pet-eye::after {
+  display: none;
+}
 
 .pet-wrapper.refuse {
   animation: shakeHead 0.5s ease-in-out;
@@ -235,17 +275,38 @@ body, html {
   animation: none;
   transform: translateY(5px);
 }
-.pet-wrapper.refuse .pet-eye::after { display: none; }
+
+.pet-wrapper.refuse .pet-eye::after {
+  display: none;
+}
 
 @keyframes shakeHead {
-  0%, 100% { transform: translateX(0) scale(var(--current-scale, 1)); }
-  25% { transform: translateX(-10px) rotate(-5deg) scale(var(--current-scale, 1)); }
-  75% { transform: translateX(10px) rotate(5deg) scale(var(--current-scale, 1)); }
+
+  0%,
+  100% {
+    transform: translateX(0) scale(var(--current-scale, 1));
+  }
+
+  25% {
+    transform: translateX(-10px) rotate(-5deg) scale(var(--current-scale, 1));
+  }
+
+  75% {
+    transform: translateX(10px) rotate(5deg) scale(var(--current-scale, 1));
+  }
 }
 
 @keyframes blink {
-  0%, 96%, 100% { transform: scaleY(1); }
-  98% { transform: scaleY(0.1); }
+
+  0%,
+  96%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  98% {
+    transform: scaleY(0.1);
+  }
 }
 
 .pet-nose {
@@ -267,8 +328,14 @@ body, html {
   background-color: rgba(219, 80, 111, 0.3);
   border-radius: 50%;
 }
-.pet-blush.left { left: 15px; }
-.pet-blush.right { right: 15px; }
+
+.pet-blush.left {
+  left: 15px;
+}
+
+.pet-blush.right {
+  right: 15px;
+}
 
 .pet-paw {
   position: absolute;
@@ -279,8 +346,14 @@ body, html {
   border: 3px solid #333;
   border-radius: 12px;
 }
-.pet-paw.left { left: 25px; }
-.pet-paw.right { right: 25px; }
+
+.pet-paw.left {
+  left: 25px;
+}
+
+.pet-paw.right {
+  right: 25px;
+}
 
 /* FEEDING EFFECTS */
 .pet-speech {
@@ -293,12 +366,13 @@ body, html {
   font-weight: 800;
   color: #333;
   font-size: 0.9rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   opacity: 0;
   transform: translateY(10px) scale(0.9);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: none;
 }
+
 .pet-speech.show {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -306,7 +380,8 @@ body, html {
 
 .crumb {
   position: absolute;
-  width: 10px; height: 10px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background-color: #e6aa68;
   pointer-events: none;
@@ -314,8 +389,15 @@ body, html {
 }
 
 @keyframes fall {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(50px) scale(0); opacity: 0; }
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(50px) scale(0);
+    opacity: 0;
+  }
 }
 
 /* FOOD DRAWER */
@@ -323,7 +405,7 @@ body, html {
   height: 200px;
   background: white;
   border-radius: 30px 30px 0 0;
-  box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
   padding: 16px 24px;
   display: flex;
   flex-direction: column;
@@ -373,15 +455,17 @@ body, html {
 
 .food-emoji {
   font-size: 2.5rem;
-  pointer-events: none; /* Let drag target the container easily */
+  pointer-events: none;
+  /* Let drag target the container easily */
 }
 
 /* Flying Food (during drag) */
 .food-clone {
   position: fixed;
   font-size: 3rem;
-  pointer-events: none; /* Ignore pointer events so drop logic targets elements underneath */
+  pointer-events: none;
+  /* Ignore pointer events so drop logic targets elements underneath */
   z-index: 9999;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
   transform: translate(-50%, -50%);
 }

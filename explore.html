@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,55 +11,355 @@
   <link rel="stylesheet" href="css/mobile.css">
   <style>
     /* Hub view */
-    .hub-page{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:60vh;}
-    .hub-grid{display:flex;flex-direction:column;gap:32px;width:100%;max-width:900px;margin-top:48px;}
-    @media(min-width:768px){.hub-grid{flex-direction:row;align-items:stretch;}}
-    .hub-card{flex:1;background:#fff;padding:48px 32px;border-radius:24px;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit;box-shadow:0 12px 32px rgba(0,0,0,0.06);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s;border:2px solid transparent;cursor:pointer;}
-    .hub-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(0,0,0,0.12);}
-    .hub-card-icon{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:3rem;}
-    .hub-card h2{font-size:1.8rem;font-weight:800;margin-bottom:16px;color:#333;}
-    .hub-card p{color:#888;line-height:1.6;margin-bottom:32px;flex:1;}
-    .hub-cta{font-weight:700;font-size:1.1rem;color:#db506f;padding:12px 24px;border-radius:100px;background:#fff5f7;}
-    .local-card:hover{border-color:#fbd6dd;}
-    .external-card:hover{border-color:#333;}
-    .external-card .hub-cta{color:#3e5b4c;background:#f0f5f2;}
+    .hub-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 60vh;
+    }
+
+    .hub-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 48px;
+    }
+
+    @media(min-width:768px) {
+      .hub-grid {
+        flex-direction: row;
+        align-items: stretch;
+      }
+    }
+
+    .hub-card {
+      flex: 1;
+      background: #fff;
+      padding: 48px 32px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .hub-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    .hub-card-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 3rem;
+    }
+
+    .hub-card h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .hub-card p {
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      flex: 1;
+    }
+
+    .hub-cta {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #db506f;
+      padding: 12px 24px;
+      border-radius: 100px;
+      background: #fff5f7;
+    }
+
+    .local-card:hover {
+      border-color: #fbd6dd;
+    }
+
+    .external-card:hover {
+      border-color: #333;
+    }
+
+    .external-card .hub-cta {
+      color: #3e5b4c;
+      background: #f0f5f2;
+    }
 
     /* Library view */
-    #library-view{display:none;}
-    .back-btn{background:none;border:none;font-weight:700;color:#db506f;cursor:pointer;font-size:1rem;margin-bottom:24px;display:flex;align-items:center;gap:6px;font-family:inherit;}
-    .search-bar{display:flex;align-items:center;gap:12px;background:#fff;padding:12px 20px;border-radius:100px;box-shadow:0 4px 12px rgba(0,0,0,0.06);margin-bottom:24px;}
-    .search-bar input{border:none;outline:none;background:transparent;font-size:1rem;width:100%;font-family:inherit;}
-    .categories-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;margin-bottom:28px;}
-    .category-chip{padding:8px 20px;border-radius:100px;border:none;background:#f0f0f0;font-weight:600;font-size:0.9rem;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all 0.2s;}
-    .category-chip.active,.category-chip:hover{background:#db506f;color:#fff;}
-    .books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;}
-    .book-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.06);cursor:pointer;transition:transform 0.2s;position:relative;}
-    .book-card:hover{transform:translateY(-4px);}
-    .book-cover{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
-    .book-info{padding:12px;}
-    .book-title{font-size:0.9rem;font-weight:700;color:#333;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .book-author{font-size:0.8rem;color:#888;}
-    .heart-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:transform 0.2s;}
-    .heart-btn:hover{transform:scale(1.2);}
-    .loading-state{text-align:center;padding:60px;color:#888;}
-    .spinner{animation:spin 1s linear infinite;display:inline-block;}
-    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-    .load-more-btn{display:block;margin:32px auto;padding:16px 40px;background:#fbd6dd;border:none;border-radius:100px;font-weight:700;font-size:1rem;cursor:pointer;font-family:inherit;transition:all 0.2s;}
-    .load-more-btn:hover{background:#f9b6c4;}
+    #library-view {
+      display: none;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-weight: 700;
+      color: #db506f;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      padding: 12px 20px;
+      border-radius: 100px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      margin-bottom: 24px;
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 1rem;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .categories-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 28px;
+    }
+
+    .category-chip {
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: none;
+      background: #f0f0f0;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .category-chip.active,
+    .category-chip:hover {
+      background: #db506f;
+      color: #fff;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .book-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      transition: transform 0.2s;
+      position: relative;
+    }
+
+    .book-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .book-info {
+      padding: 12px;
+    }
+
+    .book-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .book-author {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .heart-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .heart-btn:hover {
+      transform: scale(1.2);
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 60px;
+      color: #888;
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .load-more-btn {
+      display: block;
+      margin: 32px auto;
+      padding: 16px 40px;
+      background: #fbd6dd;
+      border: none;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .load-more-btn:hover {
+      background: #f9b6c4;
+    }
 
     /* Modal */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px;}
-    .modal-box{background:#fff;border-radius:24px;padding:32px;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
-    .modal-close{position:absolute;top:16px;right:16px;background:#f0f0f0;border:none;border-radius:50%;width:36px;height:36px;font-size:1.2rem;cursor:pointer;}
-    .modal-cover{width:120px;border-radius:12px;margin-bottom:16px;}
-    .modal-title{font-size:1.5rem;font-weight:800;color:#333;margin-bottom:8px;}
-    .modal-author{color:#888;margin-bottom:16px;}
-    .modal-desc{color:#555;line-height:1.6;font-size:0.95rem;}
-    .modal-add-btn{margin-top:20px;padding:12px 28px;background:#db506f;color:#fff;border:none;border-radius:100px;font-weight:700;cursor:pointer;font-family:inherit;font-size:1rem;transition:background 0.2s;}
-    .modal-add-btn:hover{background:#c4405c;}
-    .modal-added-btn{background:#4caf50;}
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-cover {
+      width: 120px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .modal-author {
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .modal-desc {
+      color: #555;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .modal-add-btn {
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #db506f;
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .modal-add-btn:hover {
+      background: #c4405c;
+    }
+
+    .modal-added-btn {
+      background: #4caf50;
+    }
   </style>
 </head>
+
 <body>
   <nav class="top-nav">
     <a href="index.html" class="top-nav-logo">Bites2Books</a>
@@ -67,27 +368,53 @@
     </button>
     <div class="top-nav-links" id="nav-links">
       <a href="index.html" class="top-nav-item">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
         Home
       </a>
       <a href="explore.html" class="top-nav-item">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+        </svg>
         Books
       </a>
       <a href="wishlist.html" class="top-nav-item">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        </svg>
         Wishlist
       </a>
       <a href="pet.html" class="top-nav-item">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 13v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="22" x2="12" y2="19"/></svg>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+          <path d="M19 13v2a7 7 0 0 1-14 0v-2" />
+          <line x1="12" y1="22" x2="12" y2="19" />
+        </svg>
         Pet
       </a>
       <button id="auth-btn" class="top-nav-item">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+        </svg>
         Login
       </button>
       <a href="faq.html" class="top-nav-item">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" x2="12.01" y1="17" y2="17" />
+        </svg>
         FAQ
       </a>
     </div>
@@ -109,7 +436,8 @@
             <p>Search over 1000s of books digitally, directly in the app. Add books to your Bites2Books wishlist!</p>
             <span class="hub-cta">Enter Library →</span>
           </div>
-          <a href="https://www.barnesandnoble.com/" target="_blank" rel="noopener noreferrer" class="hub-card external-card">
+          <a href="https://www.barnesandnoble.com/" target="_blank" rel="noopener noreferrer"
+            class="hub-card external-card">
             <div class="hub-card-icon" style="background:#f0f5f2;">🏪</div>
             <h2>Barnes &amp; Noble</h2>
             <p>Ready to spend those hard-earned points? Head to Barnes &amp; Noble to order real physical copies!</p>
@@ -140,7 +468,9 @@
         </div>
 
         <div id="books-container">
-          <div class="loading-state"><span class="spinner">⏳</span><p>Finding wonderful books...</p></div>
+          <div class="loading-state"><span class="spinner">⏳</span>
+            <p>Finding wonderful books...</p>
+          </div>
         </div>
         <button id="load-more-btn" class="load-more-btn" style="display:none;">Load More</button>
       </div>
@@ -162,15 +492,27 @@
 
   <nav class="bottom-nav">
     <a href="index.html" class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
       <span>Home</span>
     </a>
     <a href="explore.html" class="nav-item active">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </svg>
       <span>Explore</span>
     </a>
     <a href="wishlist.html" class="nav-item">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
       <span>Wishlist</span>
     </a>
   </nav>
@@ -253,7 +595,7 @@
         else { books = filtered; }
 
         renderBooks(append);
-      } catch(e) {
+      } catch (e) {
         container.innerHTML = '<p style="text-align:center;color:#888;padding:40px;">Couldn\'t load books right now. Try again!</p>';
         console.error(e);
       }
@@ -309,7 +651,7 @@
             wishlist.push(bookStr);
             e.currentTarget.textContent = '❤️';
           }
-          try { await updateDoc(doc(db, 'points', currentUser.uid), { wishlist }); } catch(err) { console.error(err); }
+          try { await updateDoc(doc(db, 'points', currentUser.uid), { wishlist }); } catch (err) { console.error(err); }
         });
         grid.appendChild(card);
       });
@@ -349,7 +691,7 @@
         btn.textContent = '✓ In Wishlist';
         btn.className = 'modal-add-btn modal-added-btn';
       }
-      try { await updateDoc(doc(db, 'points', currentUser.uid), { wishlist }); } catch(e) { console.error(e); }
+      try { await updateDoc(doc(db, 'points', currentUser.uid), { wishlist }); } catch (e) { console.error(e); }
     });
 
     // Category chips
@@ -383,4 +725,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -12,7 +12,7 @@ onAuthStateChanged(auth, async (user) => {
     currentUser = user;
     authBtn.innerHTML = `${USER_ICON} Logout (${user.displayName.split(' ')[0]})`;
     authBtn.onclick = () => signOut(auth).then(() => location.reload());
-    
+
     // Sync feeds
     try {
       const docRef = doc(db, 'globalData', user.uid);
@@ -78,7 +78,7 @@ foodItems.forEach(item => {
       dragClone.className = 'food-clone';
       currentEmoji = item.querySelector('.food-emoji').textContent;
       dragClone.textContent = currentEmoji;
-      
+
       document.body.appendChild(dragClone);
       moveClone(e.clientX, e.clientY);
     }, 150);
@@ -96,7 +96,7 @@ function moveClone(x, y) {
   }
 }
 
-function onPointerMove(e) { 
+function onPointerMove(e) {
   if (dragClone) {
     e.preventDefault(); // Stop native scrolling while dragging the clone
     moveClone(e.clientX, e.clientY);
@@ -113,7 +113,7 @@ function onPointerUp(e) {
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerUp);
-  
+
   if (dragTimeout) {
     clearTimeout(dragTimeout);
     dragTimeout = null;
@@ -164,18 +164,18 @@ async function feedPet(x, y) {
     try {
       const docRef = doc(db, 'globalData', currentUser.uid);
       await updateDoc(docRef, { petFeeds: feedCount });
-    } catch(e) {}
+    } catch (e) { }
   }
 
   // Create Crumbs
-  for (let i=0; i<5; i++) {
+  for (let i = 0; i < 5; i++) {
     const crumb = document.createElement('div');
     crumb.className = 'crumb';
     crumb.style.left = `${x + (Math.random() * 40 - 20)}px`;
     crumb.style.top = `${y + (Math.random() * 20 - 10)}px`;
-    if (['🍎','🍒','🍓'].includes(currentEmoji)) crumb.style.background = '#e74c3c';
-    if (['🥬','🥦','🥒','🍈'].includes(currentEmoji)) crumb.style.background = '#2ecc71';
-    if (['🌽','🥕'].includes(currentEmoji)) crumb.style.background = '#f1c40f';
+    if (['🍎', '🍒', '🍓'].includes(currentEmoji)) crumb.style.background = '#e74c3c';
+    if (['🥬', '🥦', '🥒', '🍈'].includes(currentEmoji)) crumb.style.background = '#2ecc71';
+    if (['🌽', '🥕'].includes(currentEmoji)) crumb.style.background = '#f1c40f';
     document.body.appendChild(crumb);
     setTimeout(() => crumb.remove(), 600);
   }
@@ -183,7 +183,7 @@ async function feedPet(x, y) {
   // Pet Reaction
   petWrapper.classList.add('happy', 'jump');
   petSpeech.classList.add('show');
-  
+
   const phrases = ["Yum! 💖", "So fresh!", "Thank u!", "*Nibble nibble*", "Delish! 🐹", "More pls!", "Ahhh~"];
   petSpeech.textContent = phrases[Math.floor(Math.random() * phrases.length)];
 
@@ -195,7 +195,7 @@ async function feedPet(x, y) {
 
 function updateStatsUI() {
   feedDisplay.textContent = feedCount;
-  
+
   // Custom levels based on specific feed milestones
   // Stages: 5, 15, 25, 35, 45, 60, 70, 80
   let levelIndex = 0;
@@ -206,14 +206,14 @@ function updateStatsUI() {
       break;
     }
   }
-  
+
   const currentLevel = levelIndex + 1; // Start at level 1
   levelDisplay.textContent = currentLevel;
 
   // Calculate XP %
   const currentMilestone = levelIndex === 0 ? 0 : growthStages[levelIndex - 1];
   const nextMilestone = growthStages[levelIndex] || 100; // Cap out logic cleanly
-  
+
   let percent = 100;
   if (levelIndex < growthStages.length) {
     const xpInLevel = feedCount - currentMilestone;
@@ -223,9 +223,9 @@ function updateStatsUI() {
   xpFill.style.width = `${Math.min(percent, 100)}%`;
 
   // Scale pet: grows exactly with each growth stage threshold crossed
-  const baseScale = 0.9; 
+  const baseScale = 0.9;
   // Adds 0.08 scale per level increment explicitly
-  const scale = baseScale + (levelIndex * 0.08); 
+  const scale = baseScale + (levelIndex * 0.08);
   petWrapper.style.transform = `scale(${scale})`;
   petWrapper.style.setProperty('--current-scale', scale);
 }
