@@ -1,0 +1,387 @@
+/* ============================================
+   PET ROOM STYLES
+   ============================================ */
+
+body, html {
+  overscroll-behavior: none; /* Prevent pull-to-refresh on mobile so dragging works well */
+}
+
+/* Override nav base from styles.css since pet room is full screen */
+.pet-app-container {
+  height: calc(100svh - 72px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #fff9e6; /* Soft warm yellow walls */
+  user-select: none; /* Prevent text selection while dragging */
+  margin-top: 72px; /* For top nav on mobile. Desktop nav might be diff, we'll adapt. */
+}
+
+@media (min-width: 640px) {
+  .pet-app-container {
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
+}
+
+/* ROOM */
+.pet-room {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Pet stands on floor */
+}
+
+.room-wall {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 35%;
+  background: radial-gradient(circle at 50% 50%, #fff0f5 0%, #ffe4e1 100%);
+  z-index: 1;
+}
+
+.room-floor {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 35%;
+  background-color: #e6d7c3; /* Wood-like tone */
+  border-top: 4px solid #d4c0a5;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.room-rug {
+  width: 250px;
+  height: 80px;
+  background-color: #f7e8ef;
+  border-radius: 50%;
+  margin-top: 10px;
+  border: 4px dashed #eccad9;
+}
+
+.room-window {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 160px;
+  background-color: #bce6ff; /* Sky */
+  border: 12px solid white;
+  border-radius: 16px;
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.window-hill1 {
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 120px; height: 120px;
+  background-color: #a7d971;
+  border-radius: 50%;
+}
+
+.window-hill2 {
+  position: absolute;
+  bottom: -30px; left: -20px;
+  width: 150px; height: 130px;
+  background-color: #8cc63f;
+  border-radius: 50%;
+}
+
+/* STATS OVERLAY */
+.pet-stats-panel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  z-index: 10;
+  width: 180px;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pet-name {
+  font-weight: 800;
+  color: #333;
+}
+
+.pet-level {
+  font-size: 0.8rem;
+  color: #db506f;
+  font-weight: 700;
+}
+
+.pet-xp-bar-bg {
+  width: 100%;
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.pet-xp-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #f07e7e 0%, #db506f 100%);
+  transition: width 0.3s ease;
+}
+
+.pet-feed-count {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 600;
+}
+
+/* THE GUINEA PIG */
+.pet-wrapper {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 50px;
+  transform-origin: bottom center;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pet-wrapper.jump {
+  transform: translateY(-20px) scale(1.05); /* Happy jump */
+}
+
+.pet-shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 20px;
+  background-color: rgba(0,0,0,0.15);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.pet-body {
+  position: relative;
+  width: 120px;
+  height: 140px;
+  background: linear-gradient(135deg, #fcebe8 30%, #f6bab2 100%); /* Pink naked skin */
+  border-radius: 60px 60px 40px 40px;
+  border: 4px solid #333;
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.05);
+}
+
+.pet-ear {
+  position: absolute;
+  top: 15px;
+  width: 30px;
+  height: 35px;
+  background-color: #f6bab2;
+  border: 3px solid #333;
+  border-radius: 50%;
+}
+.pet-ear.left { left: -10px; transform: rotate(-30deg); }
+.pet-ear.right { right: -10px; transform: rotate(30deg); }
+
+.pet-eye {
+  position: absolute;
+  top: 55px;
+  width: 14px;
+  height: 14px;
+  background-color: #333;
+  border-radius: 50%;
+  animation: blink 2.5s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  transform-origin: center center;
+}
+.pet-eye::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 3px;
+  width: 4px; height: 4px;
+  background: white;
+  border-radius: 50%;
+}
+.pet-eye.left { left: 30px; }
+.pet-eye.right { right: 30px; }
+
+.pet-wrapper.happy .pet-eye {
+  /* Closed happy eyes ^ ^ */
+  height: 6px;
+  background-color: transparent;
+  border-top: 4px solid #333;
+  border-radius: 50% 50% 0 0;
+  animation: none;
+}
+.pet-wrapper.happy .pet-eye::after { display: none; }
+
+.pet-wrapper.refuse {
+  animation: shakeHead 0.5s ease-in-out;
+}
+
+.pet-wrapper.refuse .pet-eye {
+  /* Closed refusing eyes - - */
+  height: 4px;
+  background-color: #333;
+  border: none;
+  border-radius: 2px;
+  animation: none;
+  transform: translateY(5px);
+}
+.pet-wrapper.refuse .pet-eye::after { display: none; }
+
+@keyframes shakeHead {
+  0%, 100% { transform: translateX(0) scale(var(--current-scale, 1)); }
+  25% { transform: translateX(-10px) rotate(-5deg) scale(var(--current-scale, 1)); }
+  75% { transform: translateX(10px) rotate(5deg) scale(var(--current-scale, 1)); }
+}
+
+@keyframes blink {
+  0%, 96%, 100% { transform: scaleY(1); }
+  98% { transform: scaleY(0.1); }
+}
+
+.pet-nose {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 8px;
+  background-color: #db506f;
+  border-radius: 50%;
+}
+
+.pet-blush {
+  position: absolute;
+  top: 65px;
+  width: 20px;
+  height: 12px;
+  background-color: rgba(219, 80, 111, 0.3);
+  border-radius: 50%;
+}
+.pet-blush.left { left: 15px; }
+.pet-blush.right { right: 15px; }
+
+.pet-paw {
+  position: absolute;
+  bottom: 10px;
+  width: 25px;
+  height: 20px;
+  background-color: #fcebe8;
+  border: 3px solid #333;
+  border-radius: 12px;
+}
+.pet-paw.left { left: 25px; }
+.pet-paw.right { right: 25px; }
+
+/* FEEDING EFFECTS */
+.pet-speech {
+  position: absolute;
+  top: -40px;
+  right: -50px;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 16px 16px 16px 0;
+  font-weight: 800;
+  color: #333;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(10px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+.pet-speech.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.crumb {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background-color: #e6aa68;
+  pointer-events: none;
+  animation: fall 0.6s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(50px) scale(0); opacity: 0; }
+}
+
+/* FOOD DRAWER */
+.food-drawer {
+  height: 200px;
+  background: white;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.drawer-handle {
+  width: 40px;
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 0 auto 12px auto;
+}
+
+.drawer-title {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 16px;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+
+.food-item {
+  background: #f8f6f2;
+  border-radius: 16px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: transform 0.1s;
+  touch-action: none; /* Crucial for custom touch drag */
+}
+
+.food-item:active {
+  cursor: grabbing;
+  transform: scale(0.9);
+}
+
+.food-emoji {
+  font-size: 2.5rem;
+  pointer-events: none; /* Let drag target the container easily */
+}
+
+/* Flying Food (during drag) */
+.food-clone {
+  position: fixed;
+  font-size: 3rem;
+  pointer-events: none; /* Ignore pointer events so drop logic targets elements underneath */
+  z-index: 9999;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+  transform: translate(-50%, -50%);
+}
