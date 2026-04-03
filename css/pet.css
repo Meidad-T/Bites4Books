@@ -363,7 +363,7 @@ body, html {
   justify-content: center;
   cursor: grab;
   transition: transform 0.1s;
-  touch-action: none; /* Crucial for custom touch drag */
+  /* Removed touch-action: none so the page can scroll natively if needed */
 }
 
 .food-item:active {
