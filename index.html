@@ -93,8 +93,7 @@
             <div id="input-area" class="home-input-area" style="display:none;">
               <span style="font-size:1.2rem;">🍲</span>
               <input id="meal-input" class="home-meal-input" type="text" placeholder="What did you eat?">
-              <div style="display:flex;gap:8px;">
-                <button id="cancel-btn" class="home-cancel-button">Cancel</button>
+              <div style="display:flex;gap:8px;width:100%;justify-content:center;">
                 <button id="yummy-btn" class="home-yummy-button" disabled>Yummy!</button>
               </div>
             </div>
@@ -179,7 +178,6 @@
     // Auth + Points
     const authBtn = document.getElementById('auth-btn');
     const logBtn = document.getElementById('log-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
     const inputArea = document.getElementById('input-area');
     const yummyBtn = document.getElementById('yummy-btn');
     const mealInput = document.getElementById('meal-input');
@@ -250,12 +248,12 @@
       mealInput.focus();
     });
 
-    cancelBtn.addEventListener('click', () => {
+    function closeInput() {
       inputArea.style.display = 'none';
       logBtn.style.display = 'flex';
       mealInput.value = '';
       yummyBtn.disabled = true;
-    });
+    }
 
     mealInput.addEventListener('keypress', e => { if (e.key === 'Enter') yummyBtn.click(); });
     mealInput.addEventListener('input', e => { yummyBtn.disabled = !e.target.value.trim(); });
@@ -266,7 +264,7 @@
       const today = new Date().toDateString();
       let dLog = { ...globalData.dailyLog };
       if (dLog.date !== today) { dLog = { date: today, count: 1 }; }
-      else if (dLog.count >= 3) { alert("3 meals logged today! Come back tomorrow 🌙"); cancelBtn.click(); return; }
+      else if (dLog.count >= 3) { alert("3 meals logged today! Come back tomorrow 🌙"); closeInput(); return; }
       else { dLog.count++; }
 
       globalData.points += 10;
@@ -274,7 +272,7 @@
       globalData.dailyLog = dLog;
       updatePointsUI();
       checkDailyLimit();
-      cancelBtn.click();
+      closeInput();
 
       import('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.module.mjs').then(m => m.default({ particleCount: 100, spread: 70, origin: { y: 0.6 } }));
 
