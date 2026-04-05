@@ -65,23 +65,19 @@ let startY = 0;
 
 foodItems.forEach(item => {
   item.addEventListener('pointerdown', (e) => {
-    // No e.preventDefault() so native scrolling still works
     if (dragClone) return;
 
     startX = e.clientX;
     startY = e.clientY;
 
-    // wait 150ms to verify if it's a drag or just a scroll swipe
-    dragTimeout = setTimeout(() => {
-      e.target.releasePointerCapture(e.pointerId);
-      dragClone = document.createElement('div');
-      dragClone.className = 'food-clone';
-      currentEmoji = item.querySelector('.food-emoji').textContent;
-      dragClone.textContent = currentEmoji;
+    e.target.releasePointerCapture(e.pointerId);
+    dragClone = document.createElement('div');
+    dragClone.className = 'food-clone';
+    currentEmoji = item.querySelector('.food-emoji').textContent;
+    dragClone.textContent = currentEmoji;
 
-      document.body.appendChild(dragClone);
-      moveClone(e.clientX, e.clientY);
-    }, 150);
+    document.body.appendChild(dragClone);
+    moveClone(e.clientX, e.clientY);
 
     document.addEventListener('pointermove', onPointerMove, { passive: false });
     document.addEventListener('pointerup', onPointerUp);
@@ -100,12 +96,6 @@ function onPointerMove(e) {
   if (dragClone) {
     e.preventDefault(); // Stop native scrolling while dragging the clone
     moveClone(e.clientX, e.clientY);
-  } else if (dragTimeout) {
-    // If they move significantly before the timeout, they are scrolling
-    if (Math.abs(e.clientX - startX) > 10 || Math.abs(e.clientY - startY) > 10) {
-      clearTimeout(dragTimeout);
-      dragTimeout = null;
-    }
   }
 }
 
@@ -113,11 +103,6 @@ function onPointerUp(e) {
   document.removeEventListener('pointermove', onPointerMove);
   document.removeEventListener('pointerup', onPointerUp);
   document.removeEventListener('pointercancel', onPointerUp);
-
-  if (dragTimeout) {
-    clearTimeout(dragTimeout);
-    dragTimeout = null;
-  }
 
   if (!dragClone) return;
 

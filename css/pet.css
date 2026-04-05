@@ -445,7 +445,7 @@ html {
   justify-content: center;
   cursor: grab;
   transition: transform 0.1s;
-  /* Removed touch-action: none so the page can scroll natively if needed */
+  touch-action: none;
 }
 
 .food-item:active {
