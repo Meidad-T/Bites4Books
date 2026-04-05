@@ -379,23 +379,23 @@ html {
 }
 
 .crumb {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #e6aa68;
+  position: fixed;
+  font-size: 1.2rem;
   pointer-events: none;
-  animation: fall 0.6s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 9999;
+  /* Start centered on the coordinate */
+  transform: translate(-50%, -50%);
+  animation: fall 0.8s forwards ease-in;
 }
 
 @keyframes fall {
   0% {
-    transform: translateY(0) scale(1);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
     opacity: 1;
   }
 
   100% {
-    transform: translateY(50px) scale(0);
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 80px))) scale(0.5) rotate(var(--rot, 180deg));
     opacity: 0;
   }
 }

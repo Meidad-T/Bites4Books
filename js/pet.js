@@ -153,16 +153,24 @@ async function feedPet(x, y) {
   }
 
   // Create Crumbs
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 6; i++) {
     const crumb = document.createElement('div');
     crumb.className = 'crumb';
-    crumb.style.left = `${x + (Math.random() * 40 - 20)}px`;
-    crumb.style.top = `${y + (Math.random() * 20 - 10)}px`;
-    if (['🍎', '🍒', '🍓'].includes(currentEmoji)) crumb.style.background = '#e74c3c';
-    if (['🥬', '🥦', '🥒', '🍈'].includes(currentEmoji)) crumb.style.background = '#2ecc71';
-    if (['🌽', '🥕'].includes(currentEmoji)) crumb.style.background = '#f1c40f';
+    crumb.textContent = currentEmoji;
+    crumb.style.left = `${x}px`;
+    crumb.style.top = `${y}px`;
+    
+    // Spread outward and fall down
+    const dx = (Math.random() * 100 - 50) + 'px';
+    const dy = (Math.random() * 60 + 40) + 'px'; // Fall downwards
+    const rot = (Math.random() * 360 - 180) + 'deg';
+    
+    crumb.style.setProperty('--dx', dx);
+    crumb.style.setProperty('--dy', dy);
+    crumb.style.setProperty('--rot', rot);
+    
     document.body.appendChild(crumb);
-    setTimeout(() => crumb.remove(), 600);
+    setTimeout(() => crumb.remove(), 800);
   }
 
   // Pet Reaction
