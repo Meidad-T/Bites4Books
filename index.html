@@ -108,9 +108,21 @@
         <!-- PROGRESS -->
         <div class="home-progress-section">
           <div class="home-progress-container">
-            <div id="points-display">
+            <div id="points-display" style="display:flex; align-items: baseline; gap: 15px;">
               <h2 style="font-size:2.5rem;font-weight:900;color:#333;margin-bottom:8px;letter-spacing:-1px;">No Points
                 (yet)</h2>
+            </div>
+
+            <!-- Streak Indicator -->
+            <div id="streak-container"
+              style="display:none; align-items: center; gap: 6px; margin-bottom: 4px; transition: all 0.3s ease;">
+              <svg id="streak-fire-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.3s ease;">
+                <path
+                  d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.3-2.35.8-3.45 1.1 2.1 2.2 3.45 3.7 3.45z" />
+              </svg>
+              <span id="streak-num"
+                style="font-weight: 800; font-size: 1.1rem; color: #888; transition: all 0.3s ease;">0</span>
             </div>
             <div style="width:100%;position:relative;margin-top:12px;">
               <div style="width:100%;height:32px;border-radius:100px;background:#e8e6e1;"></div>
@@ -237,8 +249,40 @@
     const pointsText = document.getElementById('points-display');
     const progressFill = document.getElementById('progress-fill');
 
-    let globalData = { points: 0, lifetimePoints: 0, wishlist: [], dailyLog: { date: new Date().toDateString(), count: 0 }, meals: [] };
+    let globalData = { points: 0, lifetimePoints: 0, wishlist: [], dailyLog: { date: new Date().toDateString(), count: 0 }, meals: [], streakCount: 0, lastMealTimestamp: 0 };
     let currentUser = null;
+
+    const streakContainer = document.getElementById('streak-container');
+    const streakFireIcon = document.getElementById('streak-fire-icon');
+    const streakNum = document.getElementById('streak-num');
+
+    function updateStreakUI() {
+      if (!currentUser) { streakContainer.style.display = 'none'; return; }
+      streakContainer.style.display = 'flex';
+
+      const now = Date.now();
+      const lastMeal = globalData.lastMealTimestamp;
+      const today = new Date().toDateString();
+      const mealDate = lastMeal ? new Date(lastMeal).toDateString() : null;
+
+      // Check for 48h reset
+      if (lastMeal && (now - lastMeal > 48 * 60 * 60 * 1000)) {
+        globalData.streakCount = 0;
+      }
+
+      streakNum.textContent = globalData.streakCount;
+
+      // Active state: meal logged today
+      if (mealDate === today) {
+        streakFireIcon.style.stroke = '#ff8c00';
+        streakFireIcon.style.fill = '#ff8c00';
+        streakNum.style.color = '#ff8c00';
+      } else {
+        streakFireIcon.style.stroke = '#888';
+        streakFireIcon.style.fill = 'none';
+        streakNum.style.color = '#888';
+      }
+    }
 
     function updatePointsUI() {
       const p = globalData.points;
@@ -246,6 +290,7 @@
         ? '<h2 style="font-size:2.5rem;font-weight:900;color:#333;margin-bottom:8px;letter-spacing:-1px;">No Points (yet)</h2>'
         : `<div style="font-size:56px;font-weight:900;color:#333;line-height:1;">${p}</div>`;
       progressFill.style.width = Math.min((p / 600) * 100, 100) + '%';
+      updateStreakUI();
     }
 
     function checkDailyLimit() {
@@ -276,9 +321,9 @@
         const snap = await getDoc(doc(db, 'points', user.uid));
         if (snap.exists()) {
           const d = snap.data();
-          globalData = { points: d.points || 0, lifetimePoints: d.lifetimePoints || 0, wishlist: d.wishlist || [], dailyLog: d.dailyLog || { date: new Date().toDateString(), count: 0 }, meals: d.meals || [] };
+          globalData = { points: d.points || 0, lifetimePoints: d.lifetimePoints || 0, wishlist: d.wishlist || [], dailyLog: d.dailyLog || { date: new Date().toDateString(), count: 0 }, meals: d.meals || [], streakCount: d.streakCount || 0, lastMealTimestamp: d.lastMealTimestamp || 0 };
         } else {
-          globalData = { points: 10, lifetimePoints: 10, wishlist: [], dailyLog: { date: new Date().toDateString(), count: 0 }, meals: [] };
+          globalData = { points: 10, lifetimePoints: 10, wishlist: [], dailyLog: { date: new Date().toDateString(), count: 0 }, meals: [], streakCount: 0, lastMealTimestamp: 0 };
           await setDoc(doc(db, 'points', user.uid), globalData);
         }
         logBtn.style.color = '#c4d7b2';
@@ -320,9 +365,21 @@
       else if (dLog.count >= 3) { alert("3 meals logged today! Come back tomorrow 🌙"); closeInput(); return; }
       else { dLog.count++; }
 
+      const now = Date.now();
+      const lastMeal = globalData.lastMealTimestamp;
+      const lastMealDate = lastMeal ? new Date(lastMeal).toDateString() : null;
+
+      if (!lastMeal || (now - lastMeal > 48 * 60 * 60 * 1000)) {
+        globalData.streakCount = 1;
+      } else if (today !== lastMealDate) {
+        globalData.streakCount++;
+      }
+      globalData.lastMealTimestamp = now;
+
       globalData.points += 10;
       globalData.lifetimePoints += 10;
       globalData.dailyLog = dLog;
+
       updatePointsUI();
       checkDailyLimit();
       closeInput();
@@ -335,7 +392,11 @@
 
       try {
         await updateDoc(doc(db, 'points', currentUser.uid), {
-          points: globalData.points, lifetimePoints: globalData.lifetimePoints, dailyLog: dLog,
+          points: globalData.points,
+          lifetimePoints: globalData.lifetimePoints,
+          dailyLog: dLog,
+          streakCount: globalData.streakCount,
+          lastMealTimestamp: globalData.lastMealTimestamp,
           meals: arrayUnion({ meal, timestamp: new Date().toLocaleDateString('en-US') })
         });
       } catch (e) { console.error(e); }

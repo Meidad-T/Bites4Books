@@ -50,6 +50,19 @@ const feedDisplay = document.getElementById('feed-display');
 const levelDisplay = document.getElementById('level-display');
 const xpFill = document.getElementById('xp-fill');
 
+// Reset pig tap logic
+petWrapper.addEventListener('pointerdown', (e)=>{
+  if(e.target===petWrapper || petWrapper.contains(e.target)){
+    petWrapper.classList.add('laugh');
+    petSpeech.classList.add('show');
+    petSpeech.textContent = 'Haha!';
+    setTimeout(()=>{
+      petWrapper.classList.remove('laugh');
+      petSpeech.classList.remove('show');
+    }, 600);
+  }
+});
+
 // Load stored progress
 let feedCount = parseInt(localStorage.getItem('bites4books_pet_feeds') || '0');
 let dailyPetLog = JSON.parse(localStorage.getItem('bites4books_daily_pet') || '{"date":"","count":0}');
@@ -142,14 +155,15 @@ async function feedPet(x, y) {
 
   feedCount++;
   localStorage.setItem('bites4books_pet_feeds', feedCount);
+
   updateStatsUI();
 
-  // Trigger firebase update if logged in
+  // Sync to Firebase if logged in
   if (currentUser) {
     try {
       const docRef = doc(db, 'globalData', currentUser.uid);
       await updateDoc(docRef, { petFeeds: feedCount });
-    } catch (e) { }
+    } catch (e) { console.log('Firebase sync error', e); }
   }
 
   // Create Crumbs

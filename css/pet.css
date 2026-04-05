@@ -171,6 +171,18 @@ html {
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+@keyframes laughWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+.pet-wrapper.laugh {
+  animation: laughWiggle 0.5s ease-in-out;
+}
+
+
 .pet-wrapper.jump {
   transform: translateY(-20px) scale(1.05);
   /* Happy jump */
